@@ -15,7 +15,7 @@ public class PerfilRepository {
 
     public List<Perfil> getPerfis() {
         var PerfilList = new ArrayList<Perfil>();
-        var sql = "SELECT * FROM TB_PERFIL";
+        var sql = "SELECT * FROM TB_CADASTRO";
 
         try (var conn = conexaoBD.getConnection();
              var stmt = conn.prepareStatement(sql)) {
@@ -37,7 +37,7 @@ public class PerfilRepository {
 
     public Perfil getPerfil(String cpf) {
         Perfil perfil = null;
-        var sql = "SELECT * FROM TB_PERFIL WHERE CPF = ?";
+        var sql = "SELECT * FROM TB_CADASTRO WHERE CPF = ?";
 
         try (var conn = conexaoBD.getConnection();
              var stmt = conn.prepareStatement(sql)) {

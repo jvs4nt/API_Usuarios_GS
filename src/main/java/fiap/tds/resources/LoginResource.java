@@ -18,13 +18,13 @@ public class LoginResource {
 
     @GET
     @Path("get-login/{email}/{senha}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getLogin(@PathParam("email") String email, @PathParam("senha") String senha){
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getLogin(@PathParam("email") String email, @PathParam("senha") String senha) {
         var login = loginRepo.getLogin(email, senha);
         if (login == null) {
-            return "Login not found";
+            return Response.status(Response.Status.NOT_FOUND).entity("{\"message\":\"Login not found\"}").build();
         }
-        return login.toString();
+        return Response.ok(login).build();
     }
 
     @POST

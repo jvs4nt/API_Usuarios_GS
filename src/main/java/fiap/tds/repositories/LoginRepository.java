@@ -30,6 +30,15 @@ public class LoginRepository {
                 login.setEmail(rs.getString("EMAIL"));
                 login.setSenha(rs.getString("SENHA"));
                 login.setAtivo(rs.getInt("ATIVO"));
+
+                Perfil perfil = new Perfil();
+                perfil.setNome(rs.getString("NOME"));
+                perfil.setIdade(rs.getString("IDADE"));
+                perfil.setEndereco(rs.getString("ENDERECO"));
+                perfil.setTelefone(rs.getString("TELEFONE"));
+                perfil.setCpf(rs.getString("CPF"));
+
+                login.setPerfil(perfil);
             }
         } catch (SQLException e) {
             e.printStackTrace();
