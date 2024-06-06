@@ -37,24 +37,26 @@ public class LoginRepository {
         return login;
     }
 
-    public int createLogin(Login login, Perfil perfil) {
+    public int createLogin(Login login, Perfil perfil) throws SQLException {
         String sql = "INSERT INTO TB_CADASTRO (EMAIL, SENHA, ATIVO, NOME, IDADE, ENDERECO, TELEFONE, CPF) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        int rowsAffected = 0;
 
         try (Connection conn = conexaoBD.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setString(1, login.getEmail());
             stmt.setString(2, login.getSenha());
-            stmt.setInt(3, 1);
+            stmt.setInt(3, 1); // Assuming 1 means active
             stmt.setString(4, perfil.getNome());
             stmt.setString(5, perfil.getIdade());
             stmt.setString(6, perfil.getEndereco());
             stmt.setString(7, perfil.getTelefone());
             stmt.setString(8, perfil.getCpf());
 
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            rowsAffected = stmt.executeUpdate();
         }
-        return 0;
+
+        return rowsAffected;
     }
+
 }
