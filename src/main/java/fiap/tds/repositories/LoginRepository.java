@@ -68,4 +68,39 @@ public class LoginRepository {
         return rowsAffected;
     }
 
+    public int updateLogin(Login login, Perfil perfil) throws SQLException {
+        String sql = "UPDATE TB_CADASTRO SET NOME = ?, IDADE = ?, ENDERECO = ?, TELEFONE = ?, CPF = ? WHERE EMAIL = ?";
+        int rowsAffected = 0;
+
+        try (Connection conn = conexaoBD.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, perfil.getNome());
+            stmt.setString(2, perfil.getIdade());
+            stmt.setString(3, perfil.getEndereco());
+            stmt.setString(4, perfil.getTelefone());
+            stmt.setString(5, perfil.getCpf());
+            stmt.setString(6, login.getEmail());
+
+            rowsAffected = stmt.executeUpdate();
+        }
+
+        return rowsAffected;
+    }
+
+    public int deleteLogin(String email) throws SQLException {
+        String sql = "DELETE FROM TB_CADASTRO WHERE EMAIL = ?";
+        int rowsAffected = 0;
+
+        try (Connection conn = conexaoBD.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+
+            rowsAffected = stmt.executeUpdate();
+        }
+
+        return rowsAffected;
+    }
+
 }
